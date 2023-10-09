@@ -6,7 +6,7 @@
 /*   By: incalero <incalero@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 11:03:30 by incalero          #+#    #+#             */
-/*   Updated: 2023/10/03 11:21:53 by incalero         ###   ########.fr       */
+/*   Updated: 2023/10/06 12:21:38 by incalero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,11 @@ char	*ft_free(char *str);
 char	*get_next_line(int fd);
 int		ft_strlcpy(char *dst, char *src, int dstsize);
 int		ft_file_type(char *s);
+int		validate_char(char *s);
+char 	**ft_create_array(char *av, int lines);
+char 	**ft_remove_jump(int lines, char **array);
+int		items_count(char p, char **array);
+int		ft_correct_map(int lines, char **array);
+
 
 #endif

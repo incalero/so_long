@@ -6,7 +6,7 @@
 /*   By: incalero <incalero@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 11:57:39 by incalero          #+#    #+#             */
-/*   Updated: 2023/10/04 12:05:17 by incalero         ###   ########.fr       */
+/*   Updated: 2023/10/06 13:35:39 by incalero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,19 @@ int ft_lines_count(fd)
         line_count++;
     return (line_count);
 }
+int	validate_char(char *s)
+{
+	int	i;
+	
+	i = 0;
+	while(s[i] != '\0')
+	{
+		if (s[i] != 'P' && s[i] != 'E' && s[i] != 'C' && s[i] != '1' && s[i] != '0' && s[i] != '\n')
+			return(0);
+		i++;
+	}
+	return (1);
+}
 
 char **ft_create_array(char *av, int lines)
 {
@@ -59,13 +72,13 @@ char **ft_create_array(char *av, int lines)
 	array[0] = s;
 	while ((s != NULL) && (i < lines))
 	{
+		if (!validate_char(s))
+			return(free(s), free(array), printf("error de caracteres"), NULL);
 		s = get_next_line(fd);
-		array[i] = s;
-		i++;
+		array[i++] = s;
     }
 	array[i] = NULL;
-	close (fd);
-	return (array);
+	return (close (fd), array);
 }
 char **ft_remove_jump(int lines, char **array)
 {
@@ -94,34 +107,63 @@ char **ft_remove_jump(int lines, char **array)
 	return (clean);
 }
 
+int items_count(char p, char **array)
+{
+	int	i;
+	int	j;
+	int count;
+	char *s;
+
+	s = "PEC";
+	i = 0;
+	j = 0;
+	count = 0;
+	while (array[i] != NULL)
+	{
+		j = 0;
+		while (array[i][j] != '\0')
+		{
+			if (array[i][j] == p)
+				count++;
+			j++;
+		}
+		i++;
+	}
+	return(count);
+}
+
 int ft_correct_map(int lines, char **array)
 {
 	int	i;
 	int j;
+	int	k;
 	
+	k = 0;
 	i = 0;
 	j = i + 1;
 	while (array[i] != NULL)
 	{
 		if (lines < 4)
 			return (0);
-		/* if ((i < lines) && (ft_strlen(array[i]) != ft_strlen(array[j])))
+		if ((i < lines) && (ft_strlen(array[i]) != ft_strlen(array[j])))
 			return (0); 
-		i++;*/
-		printf("lines = %d\n", lines);
-		printf("el clean 1 es = %s\n", array[0]);
-		printf("el clean 1 es = %s\n", array[lines -1]);
-		while (array[i][i] != '\0')
+		while (array[0][k] != '\0' || array[lines - 1][k] != '\0')
 		{
-			if ((array[0][i] != 1 && array[lines -1][i] != 1))
-				return (0); 
+			if (array[0][k] != '1' || array[lines - 1][k] != '1')
+				return (0);
+			k++;			
 		}
+		if (array[i][0] != '1' || array[i][ft_strlen(array[i]) - 1] != '1')
+			return(0);
 		i++;
-		
 	}
 	return(1);
 }
 
+int	all_conected(int lines, int	len, char **array)
+{
+	
+}
 
 int	main(int ac, char **av)
 {
@@ -143,9 +185,11 @@ int	main(int ac, char **av)
 	close(fd);
 	array = ft_create_array(av[1], lines);
 	clean = ft_remove_jump(lines, array);
-	printf ("correct map = %d\n", ft_correct_map(lines, clean));
 	if (!ft_correct_map(lines, clean))
-		return(write (1, "incorrect map\n", 60), -1);
+		return(write (1, "incorrect map\n", 14), -1);
+	if((items_count('P', clean) != 1) || (items_count('E', clean) != 1) || (items_count('C', clean) < 1))
+			return (write(1, "wrong itemns\n", 13), 0);
+	if (!all_conected(lines, ft_strlen(clean[0]), clean))
 	
 	/* i = 0;
 	while (array[i] != NULL)
