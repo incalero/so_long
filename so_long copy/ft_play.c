@@ -6,11 +6,33 @@
 /*   By: incalero <incalero@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 15:05:41 by incalero          #+#    #+#             */
-/*   Updated: 2023/10/17 15:24:09 by incalero         ###   ########.fr       */
+/*   Updated: 2023/10/18 10:29:45 by incalero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+
+int ft_item_count(t_data *d)
+{
+    int	i;
+	int	j;
+
+	d->count = 0;
+	i = 0;
+	while (d->ar[i])
+	{
+		j = 0;
+		while (d->ar[i][j] != '\0')
+		{
+			if (d->ar[i][j] == 'C')
+				d->count++;
+			j++;
+		}
+		i++;
+	}
+	printf("count = %d\n", d->count);
+	return(d->count);
+}
 
 void ft_player_potition(t_data *d)
 {
@@ -30,11 +52,9 @@ void ft_player_potition(t_data *d)
         player_y = i * 64;
         mlx_put_image_to_window(d->mlx, d->mlx_win, d->player, player_x, player_y);
     }
-    else
-		write(1, "player no found\n", 16);
 }
 
-int16_t	ft_print_map(t_data *d)
+int	ft_print_map(t_data *d)
 {
 	int		i;
 	int		j;
@@ -102,7 +122,7 @@ void	ft_declare_image(t_data *d)
 	int	res;
 	
 	res = 64;
-	d->player = mlx_xpm_file_to_image(d->mlx, "imagenes/player.xpm", &d->res, &d->res);
+	d->player = mlx_xpm_file_to_image(d->mlx, "imagenes/player6.xpm", &d->res, &d->res);
 	d->wall = mlx_xpm_file_to_image(d->mlx, "imagenes/wall5.xpm", &res, &res);
 	d->ground = mlx_xpm_file_to_image(d->mlx, "imagenes/ground4.xpm", &res, &res);
 	d->item = mlx_xpm_file_to_image(d->mlx, "imagenes/item1.xpm", &res, &res);
@@ -111,7 +131,6 @@ void	ft_declare_image(t_data *d)
     	write (1, "Error loading the images\n", 25);
 }
 
-
 int line_count(char **av)
 {
 	int	count;
@@ -119,12 +138,71 @@ int line_count(char **av)
 	count = 0;
 	while(av[count] != NULL)
 		count++;
-	printf("count = %d\n", count);
 	return(count);
 }
 
+/* int ft_move(t_data *d, int x, int y)
+{
+    
+    int new_x = x;
+    int new_y = y;
+
+    // Verifica si las nuevas coordenadas están dentro de los límites del juego
+    if (new_x >= 0 && new_x < ft_strlen(d->ar[0]) && new_y >= 0 && new_y < line_count(d->ar)) 
+	{
+        if (d->ar[new_y][new_x] != '1') 
+		{
+            x = new_x;
+            y = new_y;
+			d->count = d->count + 1;
+			printf("Numero de movimientos = %i\n", d->count);
+			if (d->ar[x][y] == 'C')
+			d->ar[x][y] = '0';
+
+            // Realiza otras acciones necesarias (por ejemplo, recolectar elementos o verificar la salida)
+
+            // Regresa 0 para indicar que el movimiento fue exitoso
+            return 0;
+        }
+    }
+	ft_p_potition(d->ar[new_x][new_y]);
+    // Si no se pudo mover, regresa 1 (o el valor que elijas para indicar un movimiento inválido)
+    return 1;
+} */
+/* int	ft_move(t_data *d, int x, int y)
+{
+	d->count = 0;
+	if (d->ar[x][y] == '1')
+		//return (0);
+	d->count = d->count + 1;
+	printf("Numero de movimientos = %i\n", d->count);
+	if (d->ar[x][y] == 'C')
+		d->ar[x][y] = '0';
+	return (0);
+}  */
+int	key_hook(int keycode, t_data *d)
+{
+	t_point p;
+    int i;
+    int j;
+    
+    p = ft_p_potition(d->ar);
+	i = p.y; 
+    j = p.x; 
+	if (keycode == 13)
+		ft_move(d, p.x - 1, p.y);
+	if (keycode == 1)
+		ft_move(d, p.x + 1, p.y);
+	if (keycode == 0)
+		ft_move(d, p.x, p.y - 1);
+	if (keycode == 2)
+		ft_move(d, p.x, p.y + 1);
+	return (0);
+}  
+
 void	ft_play(char **av)
 {
+	
 	t_data	d;
 	t_point x;
 
@@ -138,9 +216,9 @@ void	ft_play(char **av)
 	d.mlx_win = mlx_new_window(d.mlx, x.x * 64, x.y * 64, "so_long.c");
 	d.img = mlx_new_image(d.mlx, x.x * 64, x.y * 64);
 	ft_declare_image(&d);
-	printf("pruba");
 	mlx_loop_hook(d.mlx, ft_items, &d);
 	//mlx_key_hook(d.mlx_win, key_hook, &d);
 	//mlx_hook(d.mlx_win, 17, 0, ft_free, &d);
 	mlx_loop(d.mlx);
+
 }

@@ -6,7 +6,7 @@
 /*   By: incalero <incalero@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 13:18:21 by incalero          #+#    #+#             */
-/*   Updated: 2023/10/16 13:42:58 by incalero         ###   ########.fr       */
+/*   Updated: 2023/10/18 10:32:52 by incalero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,20 +29,14 @@ typedef struct s_point
 typedef struct s_data
 {
 	char	**ar;
-	//void	*intro;
 	void	*mlx;
 	void	*mlx_win;
-	void	*pared;
-	void	*suelo;
-	void	*risitas;
-	//void	*risitas2;
-	void	*birra;
-	void	*cobete;
+	void	*wall;
+	void	*ground;
+	void	*player;
+	void	*item;
+	void	*exit;
 	void	*img;
-	//char	*address;
-	//int		bpp;
-	//int		size;
-	//int		endian;
 	int		res;
 	int		count;
 	int		fin;

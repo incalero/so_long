@@ -6,7 +6,7 @@
 /*   By: incalero <incalero@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 13:14:10 by incalero          #+#    #+#             */
-/*   Updated: 2023/10/17 15:08:50 by incalero         ###   ########.fr       */
+/*   Updated: 2023/10/18 08:51:23 by incalero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,15 @@
 t_point	ft_p_potition(char **av)
 {
 	t_point p;
-	int 	i;
+	int i;
+    int j;
 	
 	p.x = -1; // Valor predeterminado si no se encuentra 'P'
     p.y = -1;
 	i = 0;
     while (av[i] != NULL)
     {
-        int j = 0;
+        j = 0;
         while (av[i][j] != '\0')
         {
             if (av[i][j] == 'P')
