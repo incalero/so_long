@@ -6,30 +6,31 @@
 /*   By: incalero <incalero@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 13:01:55 by incalero          #+#    #+#             */
-/*   Updated: 2023/10/18 08:51:11 by incalero         ###   ########.fr       */
+/*   Updated: 2023/10/20 17:16:10 by incalero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int ft_lines_count(int fd)
+int	ft_lines_count(int fd)
 {
-	int line_count;
-	
+	int	line_count;
+
 	line_count = 0;
-    while (get_next_line(fd) != NULL) 
-        line_count++;
-    return (line_count);
+	while (get_next_line(fd) != NULL)
+		line_count++;
+	return (line_count);
 }
 
 int	validate_char(char *s)
 {
 	int	i;
-	
+
 	i = 0;
-	while(s[i] != '\0')
+	while (s[i] != '\0')
 	{
-		if (s[i] != 'P' && s[i] != 'E' && s[i] != 'C' && s[i] != '1' && s[i] != '0' && s[i] != '\n')
+		if (s[i] != 'P' && s[i] != 'E' && s[i] != 'C' && s[i] \
+		!= '1' && s[i] != '0' && s[i] != '\n')
 			return(0);
 		i++;
 	}
@@ -114,8 +115,7 @@ char	**ft_good_map(char **av)
 	size.x = ft_strlen(clean[0]);
 	size.y = lines;
 	char**  area = make_area(clean, size);
-	t_point begin = ft_p_potition(clean);
-	if (!no_way_error (flood_fill (area, size, begin), size))
+	if (!no_way_error (flood_fill (area, size, ft_p_potition(clean)), size))
 		return(NULL);
 	return (clean);
 }

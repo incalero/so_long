@@ -6,7 +6,7 @@
 /*   By: incalero <incalero@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 13:18:21 by incalero          #+#    #+#             */
-/*   Updated: 2023/10/18 10:32:52 by incalero         ###   ########.fr       */
+/*   Updated: 2023/10/20 16:09:50 by incalero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,11 @@ typedef struct s_data
 	void	*exit;
 	void	*img;
 	int		res;
+	int		movement;
 	int		count;
 	int		fin;
+	int		pos_x;
+	int		pos_y;
 	
 }				t_data;
 
@@ -53,12 +56,13 @@ char	**ft_create_array(char *av, int lines);
 int		validate_char(char *s);
 int		ft_lines_count(int fd);
 
-/*UTILS*/
+/*SO_LONG_UTILS*/
 int		ft_correct_map(int lines, char **array);
 int		items_count(char p, char **array);
 int		ft_file_type(char *s);
+void	*ft_del(char **array, int j);
 
-/*UTILS_B*/
+/*SO_LONG_UTILS_B*/
 char**	make_area(char** zone, t_point size);
 char	**no_way_error(char **av, t_point size);
 char	**flood_fill(char **tab, t_point size, t_point begin);
@@ -80,6 +84,8 @@ char	*ft_sendline(char *s);
 
 /*FT_PLAY*/
 void	ft_play(char **av);
-int line_count(char **av);
+int 	line_count(char **av);
+int 	ft_move(t_data *d, int x, int y);
+int		ft_free_ar(t_data *d);
 
 #endif

@@ -6,11 +6,22 @@
 /*   By: incalero <incalero@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 13:09:52 by incalero          #+#    #+#             */
-/*   Updated: 2023/10/10 13:18:47 by incalero         ###   ########.fr       */
+/*   Updated: 2023/10/20 15:48:58 by incalero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "so_long.h"
+
+void	*ft_del(char **array, int j)
+{
+	int	i;
+
+	i = 0;
+	while (i < j)
+		free(array[i++]);
+	free(array);
+	return (NULL);
+}
 
 int	ft_file_type(char *s)
 {
