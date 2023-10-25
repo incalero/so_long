@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 13:18:21 by incalero          #+#    #+#             */
-/*   Updated: 2023/10/23 19:21:43 by marvin           ###   ########.fr       */
+/*   Updated: 2023/10/25 17:15:38 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ char	*ft_strjoin(char *s, char *buff);
 int		ft_strlen(char *s);
 int		ft_jumplen(char *s);
 char	*ft_sendline(char *s);
+char** make_area(char** zone, t_point size);
 
 /*FT_PLAY*/
 //void	ft_play(char **av);

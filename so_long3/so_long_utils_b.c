@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 13:14:10 by incalero          #+#    #+#             */
-/*   Updated: 2023/10/23 19:21:48 by marvin           ###   ########.fr       */
+/*   Updated: 2023/10/25 18:46:15 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,17 +79,19 @@ char **no_way_error(char **av, t_point size)
             j++;
         }
         i++;
+
 	}
-    return(av);
+    return(free_array(av), av);
 }
 
-/* char** make_area(char** zone, t_point size)
+char    **make_area(char **zone, t_point size)
 {
-    char** new;
+    char **new;
     int i = 0;
     
-    new = malloc(sizeof(char*) * size.y);
-    
+    new = (char **)malloc(sizeof(char*) * (size.y + 1));
+    if(!new)
+        return (NULL);
     while (i < size.y)
     {
         int j = 0;
@@ -105,4 +107,4 @@ char **no_way_error(char **av, t_point size)
         i++;
     }
     return (new);
-} */
+} 
